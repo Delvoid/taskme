@@ -6,18 +6,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgres"
   // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
   // Further reading:
   // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
   // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
   url      = env("DATABASE_URL")
-}
-
-model Example {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 // Necessary for Next auth
@@ -27,12 +21,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? // @db.Text
-  access_token      String? // @db.Text
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? // @db.Text
+  id_token          String? @db.Text
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -48,13 +42,15 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String            @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?           @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  project       Project[]
+  projects      UsersOnProjects[]
 }
 
 model VerificationToken {
@@ -63,4 +59,41 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Project {
+  id          String            @id @default(cuid())
+  owner_id    String
+  name        String
+  description String
+  permalink   String
+  Task        Task[]
+  user        User              @relation(fields: [owner_id], references: [id], onDelete: Cascade)
+  users       UsersOnProjects[]
+}
+
+model UsersOnProjects {
+  project     Project  @relation(fields: [projectId], references: [id])
+  projectId   String // relation scalar field (used in the `@relation` attribute above)
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String // relation scalar field (used in the `@relation` attribute above)
+  assigned_at DateTime @default(now())
+  assigned_by String
+
+  @@id([projectId, userId])
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  status      String
+  test        String[]
+  project     Project  @relation(fields: [project_id], references: [id])
+  project_id  String
+  children    Task[]   @relation("task_children")
+  parent      Task?    @relation("task_children", fields: [parent_id], references: [id])
+  parent_id   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
