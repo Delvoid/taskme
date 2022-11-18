@@ -7,7 +7,7 @@ export const generateProjects = (
 ): { owner_id: string; name: string; description: string }[] => {
   return Array.from({ length: amount }).map(() => ({
     owner_id: user.id,
-    name: faker.lorem.text(),
+    name: faker.lorem.words(),
     description: faker.lorem.paragraph(5),
   }));
 };

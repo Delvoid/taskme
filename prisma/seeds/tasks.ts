@@ -11,6 +11,8 @@ type GenTask = {
   user_id: string;
 };
 
+const statusList = ["To-do", "Doing", "Done", "Backlog"];
+
 export const generateTasksForProjects = (
   user: User,
   projects: Project[],
@@ -22,7 +24,7 @@ export const generateTasksForProjects = (
       ...Array.from({ length: amount || randomNumber(10, 40) }).map(() => ({
         title: faker.lorem.words(),
         description: faker.lorem.sentences(),
-        status: "to do",
+        status: statusList[randomNumber(0, statusList.length)] as string,
         project_id: project.id,
         user_id: user.id,
       }))

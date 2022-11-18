@@ -15,7 +15,7 @@ type Props = {
       title: string;
       chat: number;
       attachment: number;
-      assignees: { avatar: string }[];
+      assignees: { avt: string }[];
     }[];
   };
 };
