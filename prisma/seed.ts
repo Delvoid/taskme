@@ -7,20 +7,22 @@ import { users } from "./seeds/users";
 
 async function main() {
   try {
+    // add user
     await prisma.user.createMany({
       data: users,
     });
     const user = await prisma.user.findFirst({ where: { name: "Delvoid" } });
     if (!user) return;
 
+    // add projcets
     const projects = generateProjects(user, 5);
     await prisma.project.createMany({
       data: projects,
     });
-
+    // add tasks to porjcets
     const newProjects = await prisma.project.findMany({});
     if (!newProjects) return;
-    const tasks = generateTasksForProjects(user, newProjects, 5);
+    const tasks = generateTasksForProjects(user, newProjects);
 
     await prisma.task.createMany({
       data: tasks,
