@@ -73,6 +73,7 @@ CREATE TABLE "Task" (
     "status" TEXT NOT NULL,
     "tags" TEXT[],
     "project_id" TEXT NOT NULL,
+    "position" INTEGER NOT NULL,
     "user_id" TEXT NOT NULL,
     "parent_id" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

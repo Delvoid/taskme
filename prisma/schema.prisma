@@ -87,17 +87,18 @@ model UsersOnProjects {
 model Task {
   id          String   @id @default(cuid())
   title       String
-  description String
+  description String?
   status      String
   tags        String[]
   project     Project  @relation(fields: [project_id], references: [id])
   project_id  String
+  position    Int
 
   user    User   @relation(fields: [user_id], references: [id])
   user_id String
 
   children  Task[]   @relation("task_children")
-  parent    Task?    @relation("task_children", fields: [parent_id], references: [id])
+  parent    Task?    @relation("task_children", fields: [parent_id], references: [id], onDelete: Cascade)
   parent_id String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
