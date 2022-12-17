@@ -6,7 +6,7 @@ import {
 import { Draggable } from "react-beautiful-dnd";
 import type { RouterOutputs } from "../utils/trpc";
 import { trpc } from "../utils/trpc";
-import { Statuses } from "./project/BoardColumns";
+import type { Statuses } from "./project/BoardColumns";
 
 function randomIntFromInterval(min: number, max: number) {
   // min and max included

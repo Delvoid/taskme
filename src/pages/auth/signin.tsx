@@ -99,23 +99,38 @@ const signin = () => {
           <p className="text-gray-100">or use email your account</p>
           <form action="" className="mx-auto w-full px-4 sm:w-2/3 lg:px-0">
             <div className="pb-2 pt-4">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email"
-                className="block w-full rounded-sm bg-black p-4 text-lg"
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  id="email"
+                  className="border-1 peer block w-full appearance-none rounded-lg border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
+                  placeholder=" "
+                />
+                <label
+                  htmlFor="email"
+                  className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 dark:bg-gray-900 dark:text-gray-400 peer-focus:dark:text-blue-500"
+                >
+                  Email
+                </label>
+              </div>
             </div>
             <div className="pb-2 pt-4">
-              <input
-                className="block w-full rounded-sm bg-black p-4 text-lg"
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-              />
+              <div className="relative">
+                <input
+                  type="password"
+                  id="password"
+                  className="border-1 peer block w-full appearance-none rounded-lg border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
+                  placeholder=" "
+                />
+                <label
+                  htmlFor="password"
+                  className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:px-2 peer-focus:text-blue-600 dark:bg-[#161616] dark:text-gray-400 peer-focus:dark:text-blue-500"
+                >
+                  Password
+                </label>
+              </div>
             </div>
+
             <div className="text-right text-gray-400 hover:text-gray-100 hover:underline">
               <a href="#">Forgot your password?</a>
             </div>
@@ -161,6 +176,16 @@ const signin = () => {
               </a>
             </div>
           </form>
+          <div className="mx-auto w-full px-4 sm:w-2/3 lg:px-0">
+            <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-gray-300 after:mt-0.5 after:flex-1 after:border-t after:border-gray-300 md:px-16">
+              <p className="mx-4 mb-0 text-center font-semibold">OR</p>
+            </div>
+            <div className="px-4 pb-2 pt-4">
+              <button className="block w-full rounded-full bg-indigo-500 p-4 text-lg uppercase hover:bg-indigo-600 focus:outline-none">
+                sign in
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
