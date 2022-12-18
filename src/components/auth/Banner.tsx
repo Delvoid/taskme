@@ -1,20 +1,32 @@
+import BlurImage from "../../../public/BaseImageBlur.png";
+
 const Banner = () => {
   return (
     <div
-      className="relative hidden w-1/2 items-center bg-gray-500 bg-cover bg-no-repeat lg:flex"
+      className="relative hidden w-1/2 items-center overflow-hidden bg-gray-500 bg-cover bg-no-repeat lg:flex"
       style={{
-        backgroundImage:
-          "url(https://images.unsplash.com/photo-1577495508048-b635879837f1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80)",
+        backgroundImage: `url(${BlurImage.src})`,
       }}
     >
-      <div className="absolute inset-0 z-0 bg-black opacity-60"></div>
+      <div className="absolute left-[420px] top-96 w-full   scale-[2.5]">
+        <svg
+          fill="#fca5a5"
+          fill-opacity="0.1"
+          width="100%"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 589.3 652.48"
+        >
+          <defs>
+            <style></style>
+          </defs>
+          <path d="M401.03,0H0V652.48H60.61l112.18-159.9h232.11l184.4-247.58L401.03,0Zm-37.39,404.9H232.11l103.16-158.61h-98L86.4,465.5V87.69l273.37-1.29,122.5,162.47-118.63,156.03Z" />
+        </svg>
+      </div>
       <div className="z-10 w-full px-24">
-        <h1 className="text-left text-5xl font-bold tracking-wide">
-          Keep it special
+        <h1 className="text-left text-5xl font-bold uppercase tracking-wide">
+          Designed to plan engineered to build
         </h1>
-        <p className="my-4 text-3xl">
-          Capture your personal memory in unique way, anywhere.
-        </p>
+        <p className="my-4 text-3xl">Simple and effective task management</p>
       </div>
       <div className="absolute bottom-0 right-0 left-0 flex justify-center space-x-4 p-4 text-center">
         <span>
