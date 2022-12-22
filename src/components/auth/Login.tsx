@@ -1,18 +1,14 @@
-import { useState } from "react";
 import { socialsList } from "../../utils/socials";
 import Button from "../Button";
-import Input from "../form/Input";
 import SocialButton from "./SocialButton";
 import BlurImage from "../../../public/BaseImageBlur.png";
+import SignInForm from "./SignInForm";
+import { useState } from "react";
+import CreateAccountForm from "./CreateAccountForm";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Login = () => {
-  const [formData, setFormData] = useState<{
-    email: string;
-    password: string;
-  }>({ email: "", password: "" });
-  const handleOnUpdate = (fieldName: string, value: string | number | Date) => {
-    setFormData({ ...formData, [fieldName]: value });
-  };
+  const [signIn, setSignIn] = useState(true);
   return (
     <>
       <div
@@ -36,43 +32,25 @@ const Login = () => {
           </svg>
         </div>
       </div>
-      <div className="z-20 w-full py-4">
-        <h1 className="my-2 text-2xl font-bold uppercase">Login</h1>
+      <motion.div
+        layout
+        animate={{ opacity: 1 }}
+        initial={{ opacity: 0 }}
+        exit={{ opacity: 0 }}
+        className="z-20 w-full py-4"
+      >
+        <h1 className="my-2 text-2xl font-bold uppercase">
+          {signIn ? "login" : "create account"}
+        </h1>
         <div className="space-x-2 py-4">
           {socialsList.map(({ label, icon }) => (
             <SocialButton key={label} social={{ label, icon }} />
           ))}
         </div>
-        <p className="text-gray-100">or use email your account</p>
-        <form action="" className="mx-auto w-full px-4 sm:w-2/3 lg:px-0">
-          <Input
-            id="email"
-            label="Email"
-            initialValue={formData.email}
-            onUpdate={(field, value) => handleOnUpdate(field, value)}
-          />
-          <Input
-            id="password"
-            label="Password"
-            type="password"
-            initialValue={formData.password}
-            onUpdate={(field, value) => handleOnUpdate(field, value)}
-          />
-
-          <div className="text-right text-gray-400 hover:text-gray-100 hover:underline">
-            <a href="#">Forgot your password?</a>
-          </div>
-          <div className="px-4 pb-2 pt-4">
-            <Button
-              type="button"
-              variant="primary"
-              label="sign in"
-              onClick={() => {
-                console.log("button pressed");
-              }}
-            />
-          </div>
-        </form>
+        {signIn && <p className="text-gray-100">or use email your account</p>}
+        <AnimatePresence>
+          {signIn ? <SignInForm /> : <CreateAccountForm />}
+        </AnimatePresence>
         <div className="mx-auto w-full px-4 sm:w-2/3 lg:px-0">
           <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-gray-300 after:mt-0.5 after:flex-1 after:border-t after:border-gray-300 md:px-16">
             <p className="mx-4 mb-0 text-center font-semibold">OR</p>
@@ -80,9 +58,9 @@ const Login = () => {
           <div className="px-4 pb-2 pt-4">
             <Button
               type="button"
-              label="create account"
+              label={!signIn ? "sign in" : "create account"}
               variant="default"
-              onClick={() => console.log("create account button")}
+              onClick={() => setSignIn((prev) => !prev)}
             />
           </div>
 
@@ -123,7 +101,7 @@ const Login = () => {
             </a>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
