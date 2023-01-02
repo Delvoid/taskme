@@ -6,9 +6,10 @@ import SignInForm from "./SignInForm";
 import { useState } from "react";
 import CreateAccountForm from "./CreateAccountForm";
 import { motion, AnimatePresence } from "framer-motion";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
-  const [signIn, setSignIn] = useState(true);
+  const [createAccount, setCreateAccount] = useState(true);
   return (
     <>
       <div
@@ -40,16 +41,22 @@ const Login = () => {
         className="z-20 w-full py-4"
       >
         <h1 className="my-2 text-2xl font-bold uppercase">
-          {signIn ? "login" : "create account"}
+          {createAccount ? "login" : "create account"}
         </h1>
         <div className="space-x-2 py-4">
           {socialsList.map(({ label, icon }) => (
-            <SocialButton key={label} social={{ label, icon }} />
+            <SocialButton
+              key={label}
+              social={{ label, icon }}
+              handleOnClick={() => signIn("discord", { callbackUrl: `/` })}
+            />
           ))}
         </div>
-        {signIn && <p className="text-gray-100">or use email your account</p>}
+        {createAccount && (
+          <p className="text-gray-100">or use email your account</p>
+        )}
         <AnimatePresence>
-          {signIn ? <SignInForm /> : <CreateAccountForm />}
+          {createAccount ? <SignInForm /> : <CreateAccountForm />}
         </AnimatePresence>
         <div className="mx-auto w-full px-4 sm:w-2/3 lg:px-0">
           <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-gray-300 after:mt-0.5 after:flex-1 after:border-t after:border-gray-300 md:px-16">
@@ -58,9 +65,9 @@ const Login = () => {
           <div className="px-4 pb-2 pt-4">
             <Button
               type="button"
-              label={!signIn ? "sign in" : "create account"}
+              label={!createAccount ? "sign in" : "create account"}
               variant="default"
-              onClick={() => setSignIn((prev) => !prev)}
+              onClick={() => setCreateAccount((prev) => !prev)}
             />
           </div>
 
