@@ -14,14 +14,16 @@ import { prisma } from "../../../server/db/client";
 const updateRefreshToken = async ({
   user,
   account,
+  profile,
   isNewUser,
 }: {
   user: User;
-  account: Account;
+  account: Account | null;
+  profile?: Profile | undefined;
   isNewUser?: boolean;
 }) => {
   try {
-    if (!isNewUser) {
+    if (!isNewUser && account) {
       const updatedAccount = await prisma.account.updateMany({
         where: { userId: user.id, provider: "discord" },
         data: {
